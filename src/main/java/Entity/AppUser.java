@@ -18,7 +18,9 @@ public class AppUser {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long idUser;
     //@Column(name = "nom_wkdev")
-    private  String nom, prenom, ville;
+    private  String nom;
+    private String prenom;
+    private String ville;
 
     @JsonIgnore
     //@JsonProperty(access = JsonProperty.Access.WRITE_ONLY)

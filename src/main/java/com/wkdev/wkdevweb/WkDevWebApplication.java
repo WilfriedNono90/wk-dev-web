@@ -5,6 +5,9 @@ import Dao.CarteAccesRepository;
 import Dao.KontoRepository;
 import Dao.UserRepository;
 import Entity.*;
+import Service.Email.EmailSenderService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -17,7 +20,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(scanBasePackages = {"controller","Service","Entity","Dao","security"})
+@SpringBootApplication(scanBasePackages = {"controller","Service","Entity","Dao","security","restResponse","Utils"})
 
 @EnableJpaRepositories("Dao")
 @EntityScan("Entity")
@@ -34,13 +37,15 @@ public class WkDevWebApplication /*implements CommandLineRunner*/ {
     //@Autowired
     //AccountService accountService;
 
+    private static final Logger log = LoggerFactory.getLogger(WkDevWebApplication.class);
+
 
 
 
     public static void main(String[] args) {
 
         SpringApplication.run(WkDevWebApplication.class, args);
-        System.out.println("Le serve est lance");
+        log.info("Server is up");
     }
 
     //ajout d'un bean au contexte de l'application pour pouvoir le crypter
@@ -51,9 +56,11 @@ public class WkDevWebApplication /*implements CommandLineRunner*/ {
 
     @Bean
     @Transactional
-    CommandLineRunner start(AccountService accountService, KontoRepository kontoRepository, CarteAccesRepository carteAccesRepository,UserRepository userRepository,AdresseRepository adresseRepository) {
+    CommandLineRunner start(AccountService accountService, KontoRepository kontoRepository, CarteAccesRepository carteAccesRepository, UserRepository userRepository, AdresseRepository adresseRepository, EmailSenderService emailSenderService) {
 
         return args -> {
+
+            emailSenderService.sendTestEmail("wilfried.nono90@gmail.com");
 
             if (true ) {
                 AppUser appUser1 = new AppUser("wk","1234", "dev", null, 15, null, null);
