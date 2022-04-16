@@ -31,4 +31,11 @@ public class EmailSenderService {
         sendEmail(toEmail, "Email for Test", "User was save");
         log.info("Test Email was sent");
     }
+
+    public boolean sendTestEmailTest(String toEmail) {
+        sendEmail(toEmail, "Email for Test", "User was save");
+        log.info("Test Email was sent");
+        return true;
+    }
+
 }

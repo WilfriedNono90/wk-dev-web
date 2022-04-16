@@ -1,7 +1,7 @@
 package Service;
 
-import org.junit.jupiter.api.BeforeAll;
-import org.junit.jupiter.api.Test;
+import com.mysql.cj.log.Log;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.ArgumentMatchers;
 import org.mockito.Mock;
@@ -12,15 +12,33 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-@ExtendWith(MockitoExtension.class)
+@ExtendWith(MockitoExtension.class) //mockito
 class LoginServiceTest {
-
+    static  LoginService loginService1;
     @Spy
     static LoginService loginService = new LoginService() ;
 
     @BeforeAll
-     static void  initialiseMock() {
+    static void  initialiseValue() {
+        loginService1 = new LoginService();
+    }
 
+    /*
+    @BeforeEach
+
+    @AfterAll
+
+    @AfterEach
+    */
+
+    @Test
+    void testLenghName() {
+
+        String nameTest = "Wil";
+
+        boolean response = loginService1.testName(nameTest);
+        assertEquals(true, response);
+        assertTrue(response);
     }
 
     @Test
